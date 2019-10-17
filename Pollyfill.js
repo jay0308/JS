@@ -60,3 +60,41 @@ let myReduceRes = testArr.myReduceFun((allNames, name)=>{
 },{});
 
 console.log(myReduceRes)
+
+
+let obj = {
+  name:"jay"
+}
+function welcomeFun(){
+  console.log("Welcome "+this.name);
+}
+
+// let wel = welcomeFun.bind(obj);
+// wel();
+
+Function.prototype.myOwnBind = function(otherThis){
+  var boundTargetFunction = this;
+  return function boundFunction() {
+    return boundTargetFunction.apply(otherThis);
+  };
+}
+
+let welMyOwnBind = welcomeFun.myOwnBind(obj);
+welMyOwnBind();
+
+Function.prototype.myOwnCall = function(someOtherThis) {
+  someOtherThis.fnName = this;
+  var args = [];
+ 
+  // arguments are saved in strings, using args 
+  for (var i = 1, len = arguments.length; i < len; i++) {  
+    args.push("arguments[" + i + "]");
+  }
+  
+  // strings are reparsed into statements in the eval method
+  // Here args automatically calls the Array.toString() method.
+ 
+  eval("someOtherThis.fnName(" + args + ")");
+};
+
+welcomeFun.myOwnCall(obj)
