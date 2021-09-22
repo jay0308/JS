@@ -153,3 +153,7 @@ const throttling = function(fun,delay){
 }
 let inpField = document.getElementById('inputField');
 inputField.addEventListener('keyup',throttling(handleKeyup,200));
+
+
+// Link of tic tac toe
+https://jsfiddle.net/znay0kr7/17/
