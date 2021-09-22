@@ -156,4 +156,4 @@ inputField.addEventListener('keyup',throttling(handleKeyup,200));
 
 
 // Link of tic tac toe
-https://jsfiddle.net/znay0kr7/17/
+//https://jsfiddle.net/znay0kr7/17/
