@@ -108,6 +108,70 @@ Function.prototype.myBind = function(obj,...args){
 let uStd = student.myBind(uzma,"uzmaao","Senior Software Enginer")
 uStd(uStd);
 
+
+==============================================
+  MY Promise
+  
+  
+
+class MyPromise{
+	constructor(executor){
+  	this.resolvedData;
+    this.resolvedFun = [];
+    this.rejectedData;
+    this.rejectedFun = [];
+  	const resolve = (val) => {
+    	this.resolvedData = val;
+      if(this.resolvedFun.length)
+      	this.resolvedData = this.resolvedFun.reduce((a,c)=>{
+        	return c(a)
+        },this.resolvedData);
+    }
+    const reject = (val) => {
+    	this.rejectedData = val;
+      if(this.rejectedFun.length)
+      	this.rejectedData = this.rejectedFun.reduce((a,c)=>{
+        	return c(a)
+        },this.rejectedData);
+    }
+  	executor(resolve,reject)
+  }
+  catch(fn){
+  	this.rejectedFun.push(fn);
+    if(this.rejectedData)
+  		this.rejectedData = fn(this.rejectedData)
+    return this;
+  }
+  then(fn){
+  	this.resolvedFun.push(fn);
+    if(this.resolvedData)
+  		this.resolvedData = fn(this.resolvedData)
+    return this;
+  }
+}
+
+
+
+
+let promise = new MyPromise((resolve,reject) => {
+	/* setTimeout(()=>{
+	    reject("Error")
+	  },1000) */
+	reject(2);
+})
+promise.then((res)=>{
+	console.log(res)
+  return res*2
+}).then((res)=>{
+	console.log(res)
+}).catch((e)=>{
+	return ("Oops "+e)
+}).catch((e)=>{
+	console.log(e)
+}).then((res)=>{
+	console.log(res)
+})
+
 //=========================================================
 console.log("==============================================")
 
